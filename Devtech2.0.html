@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DevTech — Design, estratégia e inovação digital.">
+  <title>DevTech — Agência Digital</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect rx='18' width='100' height='100' fill='%236ee7b7'/%3E%3Ctext x='50' y='57' font-size='42' text-anchor='middle' fill='%23071018' font-family='Inter, Arial' font-weight='700'%3ED%3C/text%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root{
+      --bg:#05060a;
+      --card:#0f1720;
+      --muted:#9aa4ad;
+      --accent1:#6ee7b7;
+      --accent2:#7c5cff;
+      --glass: rgba(255,255,255,0.03);
+      --glow: 0 6px 30px rgba(124,92,255,0.12);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background-color: var(--bg);
+      color:#e6eef3; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.45; padding-bottom:120px; scroll-behavior:smooth;
+    }
+    /* Efeito Aurora com Spotlight */
+    .spotlight {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: -1;
+      background: radial-gradient(circle 500px at var(--x, 50%) var(--y, 50%), rgba(110, 231, 183, 0.05), transparent 80%);
+    }
+    a{color:inherit}
+    .container{max-width:1100px;margin:0 auto;padding:32px}
+
+    /* Header with SVG logo */
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo-wrap{display:flex;align-items:center;gap:12px}
+    .logo-svg{width:58px;height:58px;border-radius:12px;box-shadow:var(--glow);background:linear-gradient(135deg,var(--accent1),var(--accent2));display:grid;place-items:center}
+    .logo-svg svg{width:38px;height:38px}
+    .brand-text{line-height:1}
+    .brand-text .name{font-weight:800;font-size:18px}
+    .brand-text .slogan{font-size:12px;color:var(--muted)}
+
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{font-weight:600;color:var(--muted);text-decoration:none;transition:color .2s ease;}
+    nav a:hover{color:#e6eef3}
+    nav a.cta{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#071018;padding:8px 14px;border-radius:10px}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 460px;gap:36px;align-items:center;padding:72px 0}
+    .hero-left h1{font-size:clamp(32px,5vw,52px);margin:0 0 12px;line-height:1.02}
+    .hero-left p{color:var(--muted);margin:0 0 18px;font-size:18px}
+    .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 20px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);text-decoration:none;font-weight:800; transition: all .28s ease;}
+    .btn.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#071018;box-shadow:var(--glow)}
+    .btn.primary:hover{transform: translateY(-2px); box-shadow: 0 10px 40px rgba(124, 92, 255, 0.25);}
+    .btn.ghost{background:transparent;color:#d8e5ea;border:1px solid rgba(255,255,255,0.06)}
+    .btn.ghost:hover{background:rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1);}
+
+    /* animated highlights */
+    .highlight{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg, rgba(110,231,183,0.12), rgba(124,92,255,0.12));color:var(--accent1);font-weight:700;margin-left:6px}
+
+    /* mock & video preview */
+    .mock{background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:14px;padding:18px;border:1px solid var(--glass);box-shadow:0 8px 40px rgba(2,6,23,0.6)}
+    .mock img{display:block;width:100%;height:auto;border-radius:10px}
+
+    /* services */
+    .services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+    .card{
+      background:linear-gradient(var(--card), var(--card)) padding-box, linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.01)) border-box;
+      padding:18px;border-radius:14px;border:1px solid transparent;
+      backdrop-filter: blur(6px);transition:transform .28s ease, box-shadow .28s ease;
+    }
+    .card:hover{transform:translateY(-10px);box-shadow:0 18px 50px rgba(0,0,0,0.5)}
+    .card h3{margin:0 0 8px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+
+    /* icons com Lucide */
+    .ico{
+      width:48px;height:48px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent1),var(--accent2));
+      display:grid;place-items:center;margin-bottom:12px;
+      color: #071018;
+    }
+    .ico svg{width:28px; height:28px;}
+
+    /* portfolio */
+    .portfolio{margin-top:46px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .tile{height:180px;border-radius:12px;overflow:hidden;position:relative;transition: transform .28s ease;}
+    .tile:hover{transform: scale(1.05);}
+    .tile img{width:100%;height:100%;object-fit:cover;display:block}
+    .tile .overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(2,6,23,0.7));display:flex;align-items:flex-end;padding:12px;color:#fff}
+    .portfolio-link{text-decoration: none;}
+
+    /* Depoimentos */
+    #depoimentos{margin-top: 48px;}
+    .depoimentos-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 24px;}
+    .autor {display: flex; align-items: center; gap: 12px; margin-top: 16px;}
+    .autor img {width: 44px; height: 44px; border-radius: 50%; object-fit: cover;}
+    .autor strong {font-size: 14px; margin: 0; line-height: 1;}
+    .autor span {font-size: 12px; color: var(--muted); line-height: 1;}
+
+
+    /* contact */
+    .contact-card{margin-top:18px;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid var(--glass)}
+    .contact-grid{display:grid;grid-template-columns:1fr 320px;gap:12px}
+    .contact-grid input,.contact-grid textarea{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:12px;border-radius:10px;color:inherit;transition: border-color .2s ease, background-color .2s ease;}
+    .contact-grid input:focus, .contact-grid textarea:focus {outline: none; border-color: var(--accent2); background-color: rgba(124, 92, 255, 0.05);}
+
+    footer{margin-top:48px;padding:20px 0;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+    .footer-socials a {
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      transition: color .2s ease, transform .2s ease;
+    }
+    .footer-socials a:hover {
+      color: #e6eef3;
+      transform: translateY(-2px);
+    }
+    .footer-socials svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* floating whatsapp button */
+    .whatsapp-fab{position:fixed;right:22px;bottom:22px;background:linear-gradient(180deg,#25d366,#128c7e);width:64px;height:64px;border-radius:999px;display:grid;place-items:center;box-shadow:0 10px 30px rgba(18,140,126,0.18);z-index:60;border:4px solid rgba(255,255,255,0.03);cursor:pointer; transition: transform .28s ease;}
+    .whatsapp-fab:hover{transform: scale(1.1);}
+    .whatsapp-fab img{width:36px;height:36px}
+
+    /* responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .services{grid-template-columns:repeat(2,1fr)}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .contact-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){
+      .services{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      nav{display:none}
+      .hero-left h1{font-size:28px}
+      .logo-svg{width:48px;height:48px}
+    }
+
+    /* Animação float */
+    .float{animation:floaty 6s ease-in-out infinite}
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+
+    /* Nova animação reveal com Intersection Observer */
+    .reveal{
+      opacity:0;
+      transform:translateY(20px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: none;
+    }
+    .delay-1{transition-delay:.08s}.delay-2{transition-delay:.18s}.delay-3{transition-delay:.28s}
+  </style>
+</head>
+<body>
+  <div class="spotlight" aria-hidden="true"></div>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo-wrap">
+          <div class="logo-svg" aria-hidden="true">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <defs><linearGradient id="g1" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#6ee7b7" /><stop offset="1" stop-color="#7c5cff" /></linearGradient></defs>
+              <rect x="0" y="0" width="64" height="64" rx="12" fill="url(#g1)"/><path d="M18 44V20h6v18h12V20h6v24H36V28H30v16H18z" fill="#071018"/></svg>
+          </div>
+          <div class="brand-text">
+            <div class="name">DevTech</div>
+            <div class="slogan">Seu negócio visível, moderno e inesquecível.</div>
+          </div>
+        </div>
+      </div>
+
+      <nav aria-label="Menu principal">
+        <a href="#servicos">Serviços</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#contato">Contato</a>
+        <a class="cta" href="#contato">Solicitar Orçamento</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-left reveal delay-1">
+          <h1>Design, estratégia e inovação para levar sua marca mais longe <span class="highlight">na web</span></h1>
+          <p>Somos a DevTech — criamos experiências visuais e conteúdo que convertem visitantes em clientes.</p>
+
+          <div class="hero-cta">
+            <a class="btn primary" href="https://wa.me/5511941406624?text=Olá!%20Quero%20um%20orçamento%20com%20a%20DevTech" target="_blank">Fale no WhatsApp</a>
+            <a class="btn ghost" href="#portfolio">Ver Portfólio</a>
+          </div>
+
+          <div id="servicos" class="services" style="margin-top:26px">
+            <div class="card reveal delay-2">
+              <div class="ico"><i data-lucide="smartphone"></i></div>
+              <h3>Social Media</h3>
+              <p>Conteúdo estratégico, Reels e campanhas que aumentam conversões.</p>
+            </div>
+            <div class="card reveal delay-3">
+              <div class="ico"><i data-lucide="laptop-2"></i></div>
+              <h3>Web & E‑commerce</h3>
+              <p>Sites responsivos, rápidos e focados em conversão.</p>
+            </div>
+            <div class="card reveal delay-3">
+              <div class="ico"><i data-lucide="clapperboard"></i></div>
+              <h3>Vídeo & Motion</h3>
+              <p>Produção e edição otimizadas para plataformas sociais.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="mock float reveal delay-2" aria-hidden="true">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80" alt="Mockup visual DevTech">
+        </aside>
+      </section>
+
+      <section id="portfolio" class="portfolio reveal delay-2">
+        <h2 style="margin:0 0 12px">Portfólio</h2>
+        <p style="margin:0 0 18px;color:var(--muted)">Trabalhos recentes — identidade visual, landing pages e vídeos promocionais.</p>
+
+        <div class="grid">
+          <a href="#" class="portfolio-link">
+            <div class="tile">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80" alt="Dashboard para Startup de TI">
+              <div class="overlay">Dashboard para Startup</div>
+            </div>
+          </a>
+          <a href="#" class="portfolio-link"><div class="tile"><img loading="lazy" src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=900&q=80" alt="Landing Page E-commerce"><div class="overlay">Landing Page E‑commerce</div></div></a>
+          <a href="#" class="portfolio-link"><div class="tile"><img loading="lazy" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="Vídeos Promocionais"><div class="overlay">Vídeos Promocionais</div></div></a>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:18px;align-items:center">
+          <a class="btn primary" href="#contato">Solicitar Orçamento</a>
+          <a class="btn ghost" href="#servicos">Ver Serviços Detalhados</a>
+        </div>
+      </section>
+
+      <section id="depoimentos" class="reveal delay-1" style="margin-top:48px">
+        <h2>O que nossos clientes dizem</h2>
+        <div class="depoimentos-grid">
+          <div class="card reveal delay-2">
+            <p>"A DevTech transformou nossa presença online. O resultado foi incrível e o processo foi muito transparente."</p>
+            <div class="autor">
+              <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?auto=format&fit=crop&w=100" alt="Foto de um cliente satisfeito">
+              <div>
+                <strong>João Silva</strong>
+                <span>CEO, InovaTech</span>
+              </div>
+            </div>
+          </div>
+          <div class="card reveal delay-3">
+            <p>"Profissionalismo do início ao fim. Entenderam perfeitamente a nossa necessidade e entregaram além do esperado."</p>
+            <div class="autor">
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100" alt="Foto de uma cliente satisfeita">
+              <div>
+                <strong>Maria Oliveira</strong>
+                <span>Diretora, Moda & Cia</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contato" class="reveal delay-1" style="margin-top:48px">
+        <h2>Vamos conversar?</h2>
+        <p style="color:var(--muted)">Conte o que precisa e enviaremos uma proposta personalizada.</p>
+
+        <div class="contact-card">
+          <form onsubmit="openWhatsApp(event)" class="contact-grid">
+            <div>
+              <input type="text" id="name" name="name" placeholder="Seu nome" required>
+              <input type="text" id="business" name="business" placeholder="Nome do negócio (opcional)" style="margin-top:8px">
+              <input type="tel" id="phone" name="phone" placeholder="Telefone (opcional)" style="margin-top:8px">
+            </div>
+            <div>
+              <textarea id="message" name="message" placeholder="Descreva o projeto ou o serviço desejado" required style="min-height:140px"></textarea>
+              <div style="display:flex;gap:8px;margin-top:10px">
+                <button class="btn primary" type="submit">Enviar por WhatsApp</button>
+                <a class="btn ghost" href="mailto:digitalfilipe03@gmail.com">Enviar e‑mail</a>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div style="margin-top:16px;color:var(--muted);font-size:14px">Telefone: <strong>+55 (11) 94140-6624</strong> • Email: <strong>digitalfilipe03@gmail.com</strong></div>
+      </section>
+    </main>
+
+    <footer>
+      <div>© DevTech • Todos os direitos reservados</div>
+      <div class="footer-socials" style="display:flex;gap:16px;align-items:center">
+        <a href="https://instagram.com/d.t_devtech/" target="_blank" rel="noopener noreferrer" aria-label="Instagram da DevTech">
+          <i data-lucide="instagram"></i>
+        </a>
+        <a href="#">Política</a>
+        <a href="#">Termos</a>
+      </div>
+    </footer>
+    </div>
+
+  <a class="whatsapp-fab" href="https://wa.me/5511941406624?text=Olá!%20Quero%20um%20orçamento%20com%20a%20DevTech" target="_blank" aria-label="WhatsApp">
+    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='32' height='32'><path fill='%23fff' d='M20.5 3.5A11.9 11.9 0 0012 0C5.373 0 0 5.373 0 12c0 2.12.553 4.1 1.6 5.86L0 24l6.47-1.6A11.92 11.92 0 0012 24c6.627 0 12-5.373 12-12 0-3.2-1.25-6.12-3.5-8.4zM12 21.6c-1.38 0-2.74-.32-3.96-.92l-.28-.14L4.8 21l1.5-3.62-.18-.3A9.6 9.6 0 012.4 12 9.6 9.6 0 0112 2.4 9.6 9.6 0 0121.6 12 9.6 9.6 0 0112 21.6z'/></svg>" alt="wa">
+  </a>
+
+  <script>
+    const PHONE_INTL = '5511941406624';
+    function buildWhatsAppLink(text){ return `https://wa.me/${PHONE_INTL}?text=${encodeURIComponent(text)}`; }
+    function openWhatsApp(e){ e.preventDefault(); const name=document.getElementById('name').value.trim(); const business=document.getElementById('business').value.trim(); const phone=document.getElementById('phone').value.trim(); const message=document.getElementById('message').value.trim(); let text=`Olá, meu nome é ${name}. `; if(business) text+=`Empresa: ${business}. `; if(phone) text+=`Contato: ${phone}. `; text+=`\n\nDescrição: ${message}`; window.open(buildWhatsAppLink(text),'_blank'); }
+
+    // Efeito Aurora que segue o mouse
+    window.addEventListener('mousemove', (e) => {
+      document.documentElement.style.setProperty('--x', e.clientX + 'px');
+      document.documentElement.style.setProperty('--y', e.clientY + 'px');
+    });
+
+    // Animações com Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach((el) => {
+      observer.observe(el);
+    });
+
+    // Inicializa os ícones Lucide
+    lucide.createIcons();
+  </script>
+</body>
+</html>
